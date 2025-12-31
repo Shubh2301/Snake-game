@@ -15,7 +15,7 @@ food={x:Math.floor(Math.random()*rows),y:Math.floor(Math.random()*cols)}
 
 const blocks = [];
 
-const snake = [
+let snake = [
     { x: 1, y: 3}
 ]
 
@@ -68,11 +68,9 @@ function render(){
     if(head.x==food.x && head.y==food.y){
         blocks[`${food.x}-${food.y}`].classList.remove("food");
         food={x:Math.floor(Math.random()*rows),y:Math.floor(Math.random()*cols)}
-         blocks[`${food.x}-${food.y}`].classList.add("food");
+        //  blocks[`${food.x}-${food.y}`].classList.add("food");
          snake.unshift(head)
     }
-
-
 
     snake.forEach(segment=>{
       blocks[`${segment.x}-${segment.y}`].classList.remove("fill")
@@ -101,13 +99,18 @@ startBtn.addEventListener('click',()=>{
 restartBtn.addEventListener("click", restartGame)
 
 function restartGame(){
-    blocks[`${food.x}-${food.y}`].classList.remove("food")
+    blocks[`${food.x}-${food.y}`].classList.remove("fill")
     snake.forEach(segment=>{
-         blocks[`${food.x}-${food.y}`].classList.remove("food")
+         blocks[`${segment.x}-${segment.y}`].classList.remove("food")
     })
-   modal.style.display="none"
-   snake=[{x: 1, y: 3}]
-   food={x:Math.floor(Math.random()*rows),y:Math.floor(Math.random()*cols)}
+
+
+   snake=[ {x: 2, y: 1} ]
+   food={x:Math.floor(Math.random()*rows),
+    y:Math.floor(Math.random()*cols)}
+
+    modal.style.display="none";
+
    intervalId=setInterval(()=>{
         render()
     },300)
